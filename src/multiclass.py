@@ -13,18 +13,19 @@ from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Flatten, Dense, Embedding, Conv1D, GlobalMaxPooling1D, Dropout, Activation
 from tensorflow.python.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras import utils as np_utils
+import pickle
 
 
 # Loading the data from josn
 with open('data.json') as json_data:
     data = json.load(json_data)
 
-maxLen = 0
+maxLen = 256
 df = pd.DataFrame(columns=['Class Name', 'Text'])
 for item in data:
     for element in data[item]:
-        if(maxLen < len(element)):
-            maxLen = len(element)
+        #if(maxLen < len(element)):
+            #maxLen = len(element)
         df = df.append(pd.Series([item, element], index=df.columns), ignore_index=True)
 
 # Getting the fields needed for analysis
@@ -102,14 +103,10 @@ model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['ac
 
 model.fit(x_train, y_train, batch_size=32, epochs=150)
 
-text='This is a sample text'
-padded_text=pad_sequences(tk.texts_to_sequences([text]),maxlen=maxLen, truncating='post')
+model.save('model')
 
-prediction = model.predict(padded_text)
-print(prediction)
+with open('tokenizer.pickle', 'wb') as handle:
+        pickle.dump(tk, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-for item in prediction:
-    index=0
-    for ele in item:
-        print(labelencoder_Y.inverse_transform([index])+ " - " + str(round(ele*100,4)) + "%")
-        index+=1
+with open('label_encoder.pickle', 'wb') as handle:
+        pickle.dump(labelencoder_Y, handle, protocol=pickle.HIGHEST_PROTOCOL)
