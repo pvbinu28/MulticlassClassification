@@ -12,7 +12,7 @@ with open('tokenizer.pickle', 'rb') as handle:
 with open('label_encoder.pickle', 'rb') as handle:
     label_encoder = pickle.load(handle)
 
-text='This is a sample text'
+text="Induchoodan confronts his father and prods him to accept mistake and acknowledge the parentage of Indulekha. Menon ultimately regrets and secretly goes on to confess to his daughter. The very next morning when Induchoodan returns to Poovally, Indulekha is found dead and Menon is accused of murdering her. The whole act was planned by Pavithran, who after killing Indulekha, forces Raman Nair (Menon's longtime servant) to testify against Menon in court. In court, Nandagopal Marar, a close friend of Induchoodan and a supreme court lawyer, appears for Menon and manages to lay bare the murder plot and hidden intentions of other party. Menon is judged innocent of the crime by court"
 padded_text=pad_sequences(tk.texts_to_sequences([text]), maxlen=256, truncating='post')
 
 prediction = model.predict(padded_text)

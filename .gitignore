@@ -133,3 +133,5 @@ dmypy.json
 /src/tokenizer.pickle
 /src/model/variables/variables.index
 /.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/.vs/MulticlassClassification/v16/.suo
