@@ -137,7 +137,7 @@ model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 
-model.fit(x_train, y_train, batch_size=32, epochs=150)
+model.fit(x_train, y_train, batch_size=32, epochs=40)
 
 model.save('model')
 
