@@ -68,14 +68,9 @@ def clean_text(text):
     text = ' '.join(text.split()) 
     # convert text to lowercase 
     text = text.lower() 
-    
     return text
 
-
-
 movies_new['clean_plot'] = movies_new['plot'].apply(lambda x: clean_text(x))
-
-
 
 # function to remove stopwords
 def remove_stopwords(text):
@@ -107,16 +102,16 @@ clf.fit(xtrain_tfidf, ytrain)
 
 print("TRaining completed")
 
-# def infer_tags(q):
-#     q = clean_text(q)
-#     q = remove_stopwords(q)
-#     q_vec = tfidf_vectorizer.transform([q])
-#     q_pred = clf.predict(q_vec)
-#     return multilabel_binarizer.inverse_transform(q_pred)
+def infer_tags(q):
+    q = clean_text(q)
+    q = remove_stopwords(q)
+    q_vec = tfidf_vectorizer.transform([q])
+    q_pred = clf.predict(q_vec)
+    return multilabel_binarizer.inverse_transform(q_pred)
 
 
-# for i in range(5): 
-#   k = xval.sample(1).index[0] 
-#   print("Movie: ", movies_new['movie_name'][k], "\nPredicted genre: ", infer_tags(xval[k])), print("Actual genre: ",movies_new['genre_new'][k], "\n")
+for i in range(5): 
+  k = xval.sample(1).index[0] 
+  print("Movie: ", movies_new['movie_name'][k], "\nPredicted genre: ", infer_tags(xval[k])), print("Actual genre: ",movies_new['genre_new'][k], "\n")
 
 
